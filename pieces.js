@@ -1,25 +1,29 @@
 // Récupération des pièces depuis le fichier JSON
 const reponse = await fetch('pieces-autos.json');
 const pieces = await reponse.json();
-// Création des balises 
-const article = pieces[0];
-const imageElement = document.createElement("img");
-imageElement.src = article.image;
-const nomElement = document.createElement("h2");
-nomElement.innerText = article.nom;
-const prixElement = document.createElement("p");
-prixElement.innerText = `Prix: ${article.prix} € (${article.prix < 35 ? "€" : "€€€"})`;
-const categorieElement = document.createElement("p");
-categorieElement.innerText = article.categorie ?? "(aucune catégorie)";
-const descritpionElement = document.createElement("p");
-descritpionElement.innerText = article.description ?? "Pas de description pour le moment.";
-const disponibiliteElement = document.createElement("p");
-disponibiliteElement.innerText = article.disponibilite ? "En stock" : "Rupture de stock";
-//Rattachement de nos balises au DOM
-const sectionFiches = document.querySelector(".fiches");
-sectionFiches.appendChild(imageElement);
-sectionFiches.appendChild(nomElement);
-sectionFiches.appendChild(prixElement);
-sectionFiches.appendChild(categorieElement);
-sectionFiches.appendChild(descritpionElement);
-sectionFiches.appendChild(disponibiliteElement);
+for (let i = 0; i < pieces.length; i++) {
+    const sectionFiches = document.querySelector(".fiches");
+    // Création des balises 
+    const pieceElement = document.createElement("article");
+    const article = pieces[i];
+    const imageElement = document.createElement("img");
+    imageElement.src = article.image;
+    const nomElement = document.createElement("h2");
+    nomElement.innerText = article.nom;
+    const prixElement = document.createElement("p");
+    prixElement.innerText = `Prix: ${article.prix} € (${article.prix < 35 ? "€" : "€€€"})`;
+    const categorieElement = document.createElement("p");
+    categorieElement.innerText = article.categorie ?? "(aucune catégorie)";
+    const descritpionElement = document.createElement("p");
+    descritpionElement.innerText = article.description ?? "Pas de description pour le moment.";
+    const disponibiliteElement = document.createElement("p");
+    disponibiliteElement.innerText = article.disponibilite ? "En stock" : "Rupture de stock";
+    //Rattachement de nos balises au DOM
+    sectionFiches.appendChild(pieceElement);
+    pieceElement.appendChild(imageElement);
+    pieceElement.appendChild(nomElement);
+    pieceElement.appendChild(prixElement);
+    pieceElement.appendChild(categorieElement);
+    pieceElement.appendChild(descritpionElement);
+    pieceElement.appendChild(disponibiliteElement);
+}
